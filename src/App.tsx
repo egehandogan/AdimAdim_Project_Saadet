@@ -27,8 +27,10 @@ function App() {
     );
   }
 
-  // Simple demo role check
-  const isAdmin = user?.primaryEmailAddress?.emailAddress === 'admin@test.com';
+  // Role check: Use Clerk public metadata for production, fallback to demo email
+  const isAdmin = 
+    user?.publicMetadata?.role === 'admin' || 
+    user?.primaryEmailAddress?.emailAddress === 'admin@test.com';
 
   return (
     <Routes>
