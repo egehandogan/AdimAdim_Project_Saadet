@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Users, 
   CheckSquare, 
@@ -9,8 +9,10 @@ import {
   ArrowUpRight,
   ArrowDownRight
 } from 'lucide-react';
+import ReportModal from '../../components/admin/ReportModal';
 
 const AdminDashboard: React.FC = () => {
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const stats = [
     { label: 'Toplam Gönüllü', value: '12,482', change: '+12%', trend: 'up', icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
     { label: 'Bekleyen Kanıt', value: '84', change: '-5%', trend: 'down', icon: CheckSquare, color: 'text-saadet-red', bg: 'bg-red-50' },
@@ -26,7 +28,10 @@ const AdminDashboard: React.FC = () => {
           <p className="text-slate-500">Platform performansını ve bekleyen işlemleri takip edin.</p>
         </div>
         <div className="flex gap-2">
-          <button className="bg-white border border-slate-200 px-4 py-2 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">
+          <button 
+            onClick={() => setIsReportModalOpen(true)}
+            className="bg-white border border-slate-200 px-4 py-2 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors"
+          >
             Rapor İndir
           </button>
           <button className="bg-saadet-red text-white px-4 py-2 rounded-xl text-sm font-bold shadow-lg shadow-red-200">
@@ -34,6 +39,13 @@ const AdminDashboard: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* Report Modal */}
+      <ReportModal 
+        isOpen={isReportModalOpen} 
+        onClose={() => setIsReportModalOpen(false)} 
+        stats={stats}
+      />
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
